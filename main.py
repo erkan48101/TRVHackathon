@@ -1,19 +1,34 @@
+import os
 from skimage import io, color, filters
 import numpy as np
 
-image = io.imread('image_name.jpg')
+# Make sure the 'images' folder exists
+folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'images'))
 
-gray_image = color.rgb2gray(image)
+# Now check if the path exists
+if not os.path.exists(folder_path):
+    print(f"Folder not found: {folder_path}")
+    exit(1)
 
-edges = filters.sobel(gray_image)
+# List all images
+image_files = [file for file in os.listdir(folder_path) if file.endswith(('.jpg', '.png', '.jpeg'))]
 
-traffic_score = np.sum(edges > 0.1)
+# Threshold for traffic jam detection
+#TODO: Find average traffic score from the images
+THRESHOLD = 15000
 
-print(f"Traffic score: {traffic_score}")
+for filename in image_files:
+    image_path = os.path.join(folder_path, filename)
+    image = io.imread(image_path)
 
-THRESHOLD = 5000
+    gray_image = color.rgb2gray(image)
+    edges = filters.sobel(gray_image)
+    traffic_score = np.sum(edges > 0.1)
 
-if traffic_score > THRESHOLD:
-    print("There is a traffic jam")
-else:
-    print("No traffic jam detected")
+    print(f"Image: {filename}")
+    print(f"Traffic score: {traffic_score}")
+
+    if traffic_score > THRESHOLD:
+        print("There is more traffic than usual\n")
+    else:
+        print("There is less traffic than usual\n")
