@@ -3,7 +3,7 @@ from skimage import io, color, filters
 import numpy as np
 
 # Make sure the 'images' folder exists
-folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'images'))
+folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'images/landsvag'))
 
 # Now check if the path exists
 if not os.path.exists(folder_path):
@@ -15,7 +15,7 @@ image_files = [file for file in os.listdir(folder_path) if file.endswith(('.jpg'
 
 # Threshold for traffic jam detection
 #TODO: Find average traffic score from the images
-THRESHOLD = 15000
+THRESHOLD = 250000
 
 for filename in image_files:
     image_path = os.path.join(folder_path, filename)
