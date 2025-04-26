@@ -14,6 +14,7 @@ if not os.path.exists(folder_path):
 image_files = [file for file in os.listdir(folder_path) if file.endswith(('.jpg', '.png', '.jpeg'))]
 
 # Threshold for traffic jam detection
+#TODO: Find average traffic score from the images
 THRESHOLD = 15000
 
 for filename in image_files:
@@ -28,6 +29,6 @@ for filename in image_files:
     print(f"Traffic score: {traffic_score}")
 
     if traffic_score > THRESHOLD:
-        print("🚦 There is a traffic jam!\n")
+        print("There is more traffic than usual\n")
     else:
-        print("✅ No traffic jam detected.\n")
+        print("There is less traffic than usual\n")
