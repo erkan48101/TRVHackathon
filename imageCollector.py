@@ -3,7 +3,7 @@ import json
 import os
 import time
 
-API_KEY = "d68896103a8141a186a79910d41ce683"
+API_KEY = "ad56290a9f264c73937fb006a1a42b94"
 
 request_JPG = f"""
     <REQUEST>
@@ -30,7 +30,8 @@ while True:
         )
         response_json = response_trainPosition.json()
 
-        cameras = response_json.get('RESPONSE', {}).get('RESULT', [])[0].get('Camera', [])
+        cameras = response_json.get('RESPONSE', {}).get(
+            'RESULT', [])[0].get('Camera', [])
 
         for camera in cameras:
             photo_url = camera.get('PhotoUrl')
@@ -40,7 +41,8 @@ while True:
                 # Clean the name to be a valid filename
                 safe_name = camera_name.replace(" ", "_").replace("/", "_")
                 timestamp = time.strftime("%Y%m%d_%H%M%S")
-                image_path = os.path.join('images', f'{safe_name}_{timestamp}.jpg')
+                image_path = os.path.join(
+                    'images', f'{safe_name}_{timestamp}.jpg')
 
                 # Download the image
                 img_response = requests.get(photo_url)
@@ -50,7 +52,8 @@ while True:
                         f.write(img_response.content)
                     print(f"[{timestamp}] Saved {image_path}")
                 else:
-                    print(f"[{timestamp}] Failed to download image from {photo_url}")
+                    print(
+                        f"[{timestamp}] Failed to download image from {photo_url}")
             else:
                 print("No photo URL found for a camera.")
 

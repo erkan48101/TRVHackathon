@@ -3,7 +3,8 @@ from skimage import io, color, filters
 import numpy as np
 
 # Make sure the 'images' folder exists
-folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'images'))
+folder_path = os.path.abspath(os.path.join(
+    os.path.dirname(__file__), 'images'))
 
 # Now check if the path exists
 if not os.path.exists(folder_path):
@@ -11,10 +12,11 @@ if not os.path.exists(folder_path):
     exit(1)
 
 # List all images
-image_files = [file for file in os.listdir(folder_path) if file.endswith(('.jpg', '.png', '.jpeg'))]
+image_files = [file for file in os.listdir(
+    folder_path) if file.endswith(('.jpg', '.png', '.jpeg'))]
 
 # Threshold for traffic jam detection
-#TODO: Find average traffic score from the images
+# TODO: Find average traffic score from the images
 THRESHOLD = 15000
 
 for filename in image_files:
